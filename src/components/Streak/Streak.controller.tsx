@@ -6,7 +6,15 @@ interface Props {
   data: StreakData;
 }
 
-const dayLetters = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+const dayNames = [
+  'Sunday',
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday',
+];
 
 export const StreakController: FC<Props> = ({ data }) => {
   const getDays = (data: StreakData) => {
@@ -16,7 +24,7 @@ export const StreakController: FC<Props> = ({ data }) => {
     }
     const numDays = streak.length % 7 || 7;
     const dates = streak.slice(streak.length - numDays);
-    return dates.map((item: string) => dayLetters[new Date(item).getUTCDay()]);
+    return dates.map((item: string) => dayNames[new Date(item).getUTCDay()]);
   };
 
   console.log();

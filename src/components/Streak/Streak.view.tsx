@@ -10,7 +10,9 @@ export const StreakView: FC<Props> = ({ days }) => {
   return (
     <View style={styles.container}>
       {days.map((day: string) => (
-        <Text style={styles.item}>{day}</Text>
+        <Text key={day} style={styles.item}>
+          {day[0]}
+        </Text>
       ))}
     </View>
   );
