@@ -24,37 +24,50 @@ export const StreakView: FC<Props> = ({ days }) => {
   let x = w;
 
   const windowWidth = Dimensions.get('window').width;
+  const transitionTime = 1000;
 
   return (
     <View style={styles.container}>
       {isFullStreak && (
-        <Canvas
+        <MotiView
           style={{
-            width: windowWidth,
-            height: r * 4,
             flexDirection: 'row',
             position: 'absolute',
-            top: r / 2,
-            left: r / 2 - strokeWidth,
+          }}
+          from={{ left: windowWidth * -1, opacity: 0 }}
+          animate={{ left: 0, opacity: 1 }}
+          transition={{
+            type: 'timing',
+            duration: transitionTime,
           }}>
-          <Line
-            p1={vec(r + strokeWidth / 2, cy + r * 2 - strokeWidth)}
-            p2={vec((r + strokeWidth) * 15, cy + r * 2 - strokeWidth)}
-            style="stroke"
-            strokeWidth={r * 2}
-            strokeCap="round">
-            <LinearGradient
-              start={vec(r + strokeWidth / 2, cy)}
-              end={vec((r + strokeWidth) * 15, cy)}
-              colors={[colours.purpleAlpha, colours.orangeAlpha]}
-            />
-          </Line>
-        </Canvas>
+          <Canvas
+            style={{
+              width: windowWidth,
+              height: r * 4,
+              flexDirection: 'row',
+              position: 'absolute',
+              top: r / 2,
+              left: r / 2 - strokeWidth,
+            }}>
+            <Line
+              p1={vec(r + strokeWidth / 2, cy + r * 2 - strokeWidth)}
+              p2={vec((r + strokeWidth) * 15, cy + r * 2 - strokeWidth)}
+              style="stroke"
+              strokeWidth={r * 2}
+              strokeCap="round">
+              <LinearGradient
+                start={vec(r + strokeWidth / 2, cy)}
+                end={vec((r + strokeWidth) * 15, cy)}
+                colors={[colours.purpleAlpha, colours.orangeAlpha]}
+              />
+            </Line>
+          </Canvas>
+        </MotiView>
       )}
       {days.map((day: StreakDay, i: number) => {
         const isCurrentDay = days.findLastIndex(item => item.selected) === i;
 
-        return isCurrentDay ? (
+        return isCurrentDay || isFullStreak ? (
           <MotiView
             key={day.fullName}
             style={styles.thing}
@@ -63,7 +76,8 @@ export const StreakView: FC<Props> = ({ days }) => {
             exit={{ opacity: 0 }}
             transition={{
               type: 'timing',
-              duration: 1000,
+              duration: isFullStreak ? transitionTime / 7 : transitionTime,
+              delay: isFullStreak ? i * (transitionTime / 7) : 0,
             }}>
             <StreakItem
               isCurrentDay={isCurrentDay}
