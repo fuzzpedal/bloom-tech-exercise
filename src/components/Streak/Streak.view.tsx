@@ -5,6 +5,7 @@ import {
   Canvas,
   Circle,
   Group,
+  Line,
   LinearGradient,
   Paint,
   Path,
@@ -35,19 +36,35 @@ export const StreakView: FC<Props> = ({ days }) => {
     return <View />;
   }
 
+  const fullStreak = !days.map(item => item.selected).includes(false);
+  let x = w;
+  const cy = r + fontSize + strokeWidth + 10;
+
   return (
     <View style={styles.container}>
       <Canvas style={{ width: 700, height: 100, flexDirection: 'row' }}>
+        {fullStreak && (
+          <Line
+            p1={vec(r + strokeWidth / 2, cy)}
+            p2={vec((r + strokeWidth) * 15, cy)}
+            color="lightblue"
+            style="stroke"
+            strokeWidth={r * 2}
+            strokeCap="round">
+            <LinearGradient
+              start={vec(r + strokeWidth / 2, cy)}
+              end={vec((r + strokeWidth) * 15, cy)}
+              colors={['#e336eb33', '#f66938ff']}
+            />
+          </Line>
+        )}
         {days.map((day: StreakDay, i: number) => {
-          const x = i * w;
+          const isCurrentDay = days.findLastIndex(item => item.selected) === i;
+
+          x = i * w;
           const tx = x + r - font.measureText(day.shortName).width / 2 + 1;
           const cx = x + r + strokeWidth / 2;
-
           const ty = fontSize;
-          const cy = r + fontSize + strokeWidth + 10;
-
-          const isCurrentDay = days.findLastIndex(item => item.selected) === i;
-          const fullStreak = !days.map(item => item.selected).includes(false);
 
           return (
             <Group key={day.fullName}>
@@ -77,8 +94,8 @@ export const StreakView: FC<Props> = ({ days }) => {
                         />
                       )}
                       <LinearGradient
-                        start={vec(128, 0)}
-                        end={vec(128, 100)}
+                        start={vec(r, cy - r)}
+                        end={vec(r, cy + r)}
                         colors={['#e336eb', '#e336eb', '#f66938', '#f66938']}
                       />
                     </Circle>
@@ -111,7 +128,7 @@ export const StreakView: FC<Props> = ({ days }) => {
                     cx={cx}
                     cy={cy}
                     r={r + strokeWidth / 2}
-                    color="#777"
+                    color="#444951"
                   />
                 )}
               </Group>

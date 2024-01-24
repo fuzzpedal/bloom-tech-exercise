@@ -1,4 +1,4 @@
-import { SafeAreaView, Text } from 'react-native';
+import { SafeAreaView } from 'react-native';
 import { Streak } from './src/components/Streak';
 import {
   fourDayStreak,
@@ -10,9 +10,7 @@ import {
 export default function App() {
   const r = 10;
   return (
-    <SafeAreaView style={{ backgroundColor: '#444', flex: 1 }}>
-      <Text style={{ color: '#fff' }}>Bloom Test Exercise</Text>
-
+    <SafeAreaView style={{ backgroundColor: '#0c121d', flex: 1 }}>
       <Streak data={oneDayStreak} />
       <Streak data={fourDayStreak} />
       <Streak data={sevenDayStreak} />
