@@ -1,0 +1,1 @@
+export { StreakItemView as StreakItem } from './StreakItemView';
