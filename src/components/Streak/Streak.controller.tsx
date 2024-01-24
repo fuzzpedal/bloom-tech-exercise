@@ -47,7 +47,5 @@ export const StreakController: FC<Props> = ({ data }) => {
     return days;
   };
 
-  console.log(getDays(data));
-
   return <StreakView days={getDays(data)} />;
 };

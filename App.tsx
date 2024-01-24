@@ -6,11 +6,12 @@ import {
   oneDayStreak,
   sevenDayStreak,
 } from './src/data/dummyData';
+import { colours } from './src/design/colours';
 
 export default function App() {
   const r = 10;
   return (
-    <SafeAreaView style={{ backgroundColor: '#0c121d', flex: 1 }}>
+    <SafeAreaView style={{ backgroundColor: colours.nearBlack, flex: 1 }}>
       <Streak data={oneDayStreak} />
       <Streak data={fourDayStreak} />
       <Streak data={sevenDayStreak} />
