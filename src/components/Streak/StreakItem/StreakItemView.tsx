@@ -1,4 +1,5 @@
 import {
+  Canvas,
   Circle,
   Group,
   LinearGradient,
@@ -8,7 +9,7 @@ import {
   useFont,
   vec,
 } from '@shopify/react-native-skia';
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { colours } from '../../../design/colours';
 
 interface Props {
@@ -26,7 +27,7 @@ export const StreakItemView: FC<Props> = ({
 }) => {
   const strokeWidth = 3;
   const r = 20;
-  const spacing = 14;
+  const spacing = 0;
   const w = r * 2 + spacing;
 
   const fontSize = 24;
@@ -36,16 +37,25 @@ export const StreakItemView: FC<Props> = ({
   );
 
   if (!font) {
-    return <Circle cx={0} cy={0} r={0} />;
+    return (
+      <Canvas>
+        <Circle cx={0} cy={0} r={0} />
+      </Canvas>
+    );
   }
 
-  const cx = 0;
+  const cx = r + strokeWidth;
   const cy = r + fontSize + strokeWidth + 10;
-  const tx = 0 - font.measureText(shortName).width / 2 + 1;
+  const tx = cx - font.measureText(shortName).width / 2 + 1;
   const ty = 20;
 
   return (
-    <>
+    <Canvas
+      style={{
+        width: r * 2 + strokeWidth * 2,
+        height: r * 4,
+        flexDirection: 'row',
+      }}>
       {selected ? (
         <>
           <Group>
@@ -106,6 +116,6 @@ export const StreakItemView: FC<Props> = ({
         />
       )}
       <Text x={tx} y={ty} text={shortName} font={font} color={colours.white} />
-    </>
+    </Canvas>
   );
 };

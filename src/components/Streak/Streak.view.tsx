@@ -1,12 +1,8 @@
 import React, { FC } from 'react';
-import { View } from 'react-native';
-import {
-  Canvas,
-  Group,
-  Line,
-  LinearGradient,
-  vec,
-} from '@shopify/react-native-skia';
+import { Dimensions, View } from 'react-native';
+
+import { MotiView } from 'moti';
+import { Canvas, Line, LinearGradient, vec } from '@shopify/react-native-skia';
 
 import { colours } from '../../design/colours';
 import { StreakDay } from '../../types';
@@ -27,10 +23,20 @@ export const StreakView: FC<Props> = ({ days }) => {
   const isFullStreak = !days.map(item => item.selected).includes(false);
   let x = w;
 
+  const windowWidth = Dimensions.get('window').width;
+
   return (
     <View style={styles.container}>
-      <Canvas style={{ width: 700, height: 100, flexDirection: 'row' }}>
-        {isFullStreak && (
+      {isFullStreak && (
+        <Canvas
+          style={{
+            width: windowWidth,
+            height: r * 4,
+            flexDirection: 'row',
+            position: 'absolute',
+            top: r / 2,
+            left: r / 2 - strokeWidth,
+          }}>
           <Line
             p1={vec(r + strokeWidth / 2, cy + r * 2 - strokeWidth)}
             p2={vec((r + strokeWidth) * 15, cy + r * 2 - strokeWidth)}
@@ -43,27 +49,40 @@ export const StreakView: FC<Props> = ({ days }) => {
               colors={[colours.purpleAlpha, colours.orangeAlpha]}
             />
           </Line>
-        )}
-        {days.map((day: StreakDay, i: number) => {
-          const isCurrentDay = days.findLastIndex(item => item.selected) === i;
+        </Canvas>
+      )}
+      {days.map((day: StreakDay, i: number) => {
+        const isCurrentDay = days.findLastIndex(item => item.selected) === i;
 
-          return (
-            <Group
-              key={day.fullName}
-              transform={[
-                { translateX: i * (r * 2 + spacing) + r },
-                { translateY: 0 },
-              ]}>
-              <StreakItem
-                isCurrentDay={isCurrentDay}
-                isFullStreak={isFullStreak}
-                selected={day.selected}
-                shortName={day.shortName}
-              />
-            </Group>
-          );
-        })}
-      </Canvas>
+        return isCurrentDay ? (
+          <MotiView
+            key={day.fullName}
+            style={styles.thing}
+            from={{ opacity: 0, scale: 1.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{
+              type: 'timing',
+              duration: 1000,
+            }}>
+            <StreakItem
+              isCurrentDay={isCurrentDay}
+              isFullStreak={isFullStreak}
+              selected={day.selected}
+              shortName={day.shortName}
+            />
+          </MotiView>
+        ) : (
+          <View key={day.fullName} style={styles.thing}>
+            <StreakItem
+              isCurrentDay={isCurrentDay}
+              isFullStreak={isFullStreak}
+              selected={day.selected}
+              shortName={day.shortName}
+            />
+          </View>
+        );
+      })}
     </View>
   );
 };

@@ -8,5 +8,11 @@ export default StyleSheet.create({
 
     item: {
         padding: 10,
+    },
+
+    thing: {
+        // borderWidth: 1,
+        // borderColor: 'white',
+        flex: 1, 
     }
 })

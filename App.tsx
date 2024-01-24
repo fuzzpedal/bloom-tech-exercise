@@ -9,7 +9,6 @@ import {
 import { colours } from './src/design/colours';
 
 export default function App() {
-  const r = 10;
   return (
     <SafeAreaView style={{ backgroundColor: colours.nearBlack, flex: 1 }}>
       <Streak data={oneDayStreak} />
