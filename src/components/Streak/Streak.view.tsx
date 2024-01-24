@@ -14,17 +14,22 @@ interface Props {
 }
 
 export const StreakView: FC<Props> = ({ days }) => {
+  const windowWidth = Dimensions.get('window').width;
+
+  const initialDelay = 500;
+  const transitionTime = 1000;
+
   const r = 20;
+  const strokeWidth = 3;
   const spacing = 14;
   const w = r * 2 + spacing;
-  const cy = 20;
-  const strokeWidth = 3;
 
   const isFullStreak = !days.map(item => item.selected).includes(false);
-  let x = w;
+  const fullStreakLineXFrom = r * 2;
+  const fullStreakLineXTo = windowWidth - r * 2;
+  const fullStreakLineY = 20;
 
-  const windowWidth = Dimensions.get('window').width;
-  const transitionTime = 1000;
+  let x = w;
 
   return (
     <View style={styles.container}>
@@ -39,6 +44,7 @@ export const StreakView: FC<Props> = ({ days }) => {
           transition={{
             type: 'timing',
             duration: transitionTime,
+            delay: initialDelay,
           }}>
           <Canvas
             style={{
@@ -50,14 +56,17 @@ export const StreakView: FC<Props> = ({ days }) => {
               left: 0,
             }}>
             <Line
-              p1={vec(r + strokeWidth / 2, cy + r * 2 - strokeWidth)}
-              p2={vec(windowWidth - r * 2, cy + r * 2 - strokeWidth)}
+              p1={vec(
+                fullStreakLineXFrom,
+                fullStreakLineY + r * 2 - strokeWidth,
+              )}
+              p2={vec(fullStreakLineXTo, fullStreakLineY + r * 2 - strokeWidth)}
               style="stroke"
               strokeWidth={r * 2}
               strokeCap="round">
               <LinearGradient
-                start={vec(r + strokeWidth / 2, cy)}
-                end={vec((r + strokeWidth) * 15, cy)}
+                start={vec(fullStreakLineXFrom, fullStreakLineY)}
+                end={vec(fullStreakLineXTo, fullStreakLineY)}
                 colors={[colours.purpleAlpha, colours.orangeAlpha]}
               />
             </Line>
@@ -78,7 +87,9 @@ export const StreakView: FC<Props> = ({ days }) => {
             transition={{
               type: 'timing',
               duration: isFullStreak ? transitionTime / 7 : transitionTime,
-              delay: isFullStreak ? i * (transitionTime / 7) : 0,
+              delay: isFullStreak
+                ? initialDelay + i * (transitionTime / 7)
+                : initialDelay,
             }}>
             <StreakItem
               isCurrentDay={isCurrentDay}
