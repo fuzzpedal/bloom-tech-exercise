@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
-import { StreakView } from './Streak.view';
+
 import { RawStreakData, StreakDay } from '../../types';
-import { View } from 'react-native';
+import { StreakView } from './Streak.view';
 
 interface Props {
   data: RawStreakData;
@@ -23,13 +23,19 @@ export const StreakController: FC<Props> = ({ data }) => {
     if (streak.length === 0) {
       return [];
     }
-    const numDays = streak.length % 7 || 7;
+
+    // get the number of streak days since the last 7-day streak
+    const numDays = streak.length ? streak.length % 7 || 7 : 0;
+
+    // get the dates that correspond to those streak days
     const dates = streak.slice(streak.length - numDays);
+
     const days = dates.map((item: string) => {
       const name = dayNames[new Date(item).getUTCDay()];
       return { fullName: name, shortName: name[0], selected: true };
     });
 
+    // add the non-streak days
     const remainingDays = 7 - days.length;
     for (let i = 0; i < remainingDays; i++) {
       let lastDayIndex = dayNames.indexOf(days[days.length - 1].fullName) + 1;

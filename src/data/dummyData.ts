@@ -1,10 +1,10 @@
-import { StreakData } from "../types";
+import { RawStreakData } from "../types";
 
-export const oneDayStreak: StreakData = {
+export const oneDayStreak: RawStreakData = {
   streak: ['2023-07-24T12:07:47+01:00'],
 };
   
-export const fourDayStreak = {
+export const fourDayStreak: RawStreakData = {
   streak: [
     '2023-07-19T12:07:47+01:00',
     '2023-07-20T12:07:47+01:00',
@@ -13,7 +13,7 @@ export const fourDayStreak = {
   ],
 };
 
-export const sevenDayStreak = {
+export const sevenDayStreak: RawStreakData = {
   
   "streak": [
     "2023-07-22T12:07:47+01:00",
@@ -26,7 +26,7 @@ export const sevenDayStreak = {
   ]
 }
 
-export const nineDayStreak = {
+export const nineDayStreak: RawStreakData = {
   "streak": [
     "2023-07-31T12:07:47+01:00",
     "2023-08-01T12:07:47+01:00",

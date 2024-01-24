@@ -1,4 +1,5 @@
 import { SafeAreaView } from 'react-native';
+
 import { Streak } from './src/components/Streak';
 import {
   fourDayStreak,

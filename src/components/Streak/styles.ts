@@ -10,9 +10,7 @@ export default StyleSheet.create({
         padding: 10,
     },
 
-    thing: {
-        // borderWidth: 1,
-        // borderColor: 'white',
+    streakItemContainer: {
         flex: 1, 
     }
 })

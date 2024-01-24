@@ -47,11 +47,11 @@ export const StreakView: FC<Props> = ({ days }) => {
               flexDirection: 'row',
               position: 'absolute',
               top: r / 2,
-              left: r / 2 - strokeWidth,
+              left: 0,
             }}>
             <Line
               p1={vec(r + strokeWidth / 2, cy + r * 2 - strokeWidth)}
-              p2={vec((r + strokeWidth) * 15, cy + r * 2 - strokeWidth)}
+              p2={vec(windowWidth - r * 2, cy + r * 2 - strokeWidth)}
               style="stroke"
               strokeWidth={r * 2}
               strokeCap="round">
@@ -64,13 +64,14 @@ export const StreakView: FC<Props> = ({ days }) => {
           </Canvas>
         </MotiView>
       )}
+
       {days.map((day: StreakDay, i: number) => {
         const isCurrentDay = days.findLastIndex(item => item.selected) === i;
 
         return isCurrentDay || isFullStreak ? (
           <MotiView
             key={day.fullName}
-            style={styles.thing}
+            style={styles.streakItemContainer}
             from={{ opacity: 0, scale: 1.5 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0 }}
@@ -87,7 +88,7 @@ export const StreakView: FC<Props> = ({ days }) => {
             />
           </MotiView>
         ) : (
-          <View key={day.fullName} style={styles.thing}>
+          <View key={day.fullName} style={styles.streakItemContainer}>
             <StreakItem
               isCurrentDay={isCurrentDay}
               isFullStreak={isFullStreak}

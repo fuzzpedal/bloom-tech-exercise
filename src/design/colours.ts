@@ -1,6 +1,6 @@
 export const colours = {
     purple: '#e336eb',
-    purpleAlpha: '#e336eb33',
+    purpleAlpha: '#e336eb22',
     orange: '#f66938',
     orangeAlpha: '#f66938ff',
     nearBlack: '#0c121d',

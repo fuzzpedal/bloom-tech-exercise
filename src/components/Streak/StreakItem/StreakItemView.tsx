@@ -1,3 +1,4 @@
+import React, { FC } from 'react';
 import {
   Canvas,
   Circle,
@@ -9,7 +10,7 @@ import {
   useFont,
   vec,
 } from '@shopify/react-native-skia';
-import React, { FC, useEffect } from 'react';
+
 import { colours } from '../../../design/colours';
 
 interface Props {
@@ -25,11 +26,6 @@ export const StreakItemView: FC<Props> = ({
   selected,
   shortName,
 }) => {
-  const strokeWidth = 3;
-  const r = 20;
-  const spacing = 0;
-  const w = r * 2 + spacing;
-
   const fontSize = 24;
   const font = useFont(
     require('../../../assets/fonts/Roboto-Regular.ttf'),
@@ -44,22 +40,27 @@ export const StreakItemView: FC<Props> = ({
     );
   }
 
+  const strokeWidth = 3;
+  const r = 20;
   const cx = r + strokeWidth;
   const cy = r + fontSize + strokeWidth + 10;
   const tx = cx - font.measureText(shortName).width / 2 + 1;
   const ty = 20;
+  const canvasWidth = r * 2 + strokeWidth * 2;
+  const canvasHeight = r * 4;
+  const selectedCircleRadius = r - strokeWidth / 2;
 
   return (
     <Canvas
       style={{
-        width: r * 2 + strokeWidth * 2,
-        height: r * 4,
+        width: canvasWidth,
+        height: canvasHeight,
         flexDirection: 'row',
       }}>
       {selected ? (
         <>
           <Group>
-            <Circle cx={cx} cy={cy} r={isCurrentDay ? r - strokeWidth / 2 : r}>
+            <Circle cx={cx} cy={cy} r={isCurrentDay ? selectedCircleRadius : r}>
               {isCurrentDay && (
                 <Paint
                   color={colours.white}
@@ -108,12 +109,7 @@ export const StreakItemView: FC<Props> = ({
           </Group>
         </>
       ) : (
-        <Circle
-          cx={cx}
-          cy={cy}
-          r={r + strokeWidth / 2}
-          color={colours.greyDark}
-        />
+        <Circle cx={cx} cy={cy} r={r} color={colours.greyDark} />
       )}
       <Text x={tx} y={ty} text={shortName} font={font} color={colours.white} />
     </Canvas>
