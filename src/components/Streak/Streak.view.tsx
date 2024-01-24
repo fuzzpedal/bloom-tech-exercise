@@ -5,13 +5,16 @@ import {
   Canvas,
   Circle,
   Group,
+  LinearGradient,
   Paint,
   Text,
   useFont,
+  vec,
 } from '@shopify/react-native-skia';
+import { StreakDay } from '../../types';
 
 interface Props {
-  days: string[];
+  days: StreakDay[];
 }
 
 export const StreakView: FC<Props> = ({ days }) => {
@@ -34,30 +37,48 @@ export const StreakView: FC<Props> = ({ days }) => {
   return (
     <View style={styles.container}>
       <Canvas style={{ width: 700, height: 100, flexDirection: 'row' }}>
-        {days.map((day: string, i: number) => {
-          const text = day[0];
-
+        {days.map((day: StreakDay, i: number) => {
           const x = i * w;
-          const tx = x + r - font.measureText(text).width / 2 + 1;
+          const tx = x + r - font.measureText(day.shortName).width / 2 + 1;
           const cx = x + r + strokeWidth / 2;
 
           const ty = fontSize;
           const cy = r + fontSize + strokeWidth + 10;
 
           return (
-            <Group key={day}>
+            <Group key={day.fullName}>
               <Group>
                 <Paint color="#fff" style="stroke" strokeWidth={strokeWidth} />
-                <Text x={tx} y={ty} text={text} font={font} color="#fff" />
+                <Text
+                  x={tx}
+                  y={ty}
+                  text={day.shortName}
+                  font={font}
+                  color="#fff"
+                />
               </Group>
               <Group>
-                <Circle cx={cx} cy={cy} r={r} color="#c69">
-                  <Paint
-                    color="#fff"
-                    style="stroke"
-                    strokeWidth={strokeWidth}
+                {day.selected ? (
+                  <Circle cx={cx} cy={cy} r={r} color="#c69">
+                    <Paint
+                      color="#fff"
+                      style="stroke"
+                      strokeWidth={strokeWidth}
+                    />
+                    <LinearGradient
+                      start={vec(128, 0)}
+                      end={vec(128, 100)}
+                      colors={['#e336eb', '#e336eb', '#f66938', '#f66938']}
+                    />
+                  </Circle>
+                ) : (
+                  <Circle
+                    cx={cx}
+                    cy={cy}
+                    r={r + strokeWidth / 2}
+                    color="#777"
                   />
-                </Circle>
+                )}
               </Group>
             </Group>
           );
