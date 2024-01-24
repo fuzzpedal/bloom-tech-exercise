@@ -8,9 +8,10 @@ import {
 } from './src/data/dummyData';
 
 export default function App() {
+  const r = 10;
   return (
-    <SafeAreaView>
-      <Text>Bloom Text Exercise</Text>
+    <SafeAreaView style={{ backgroundColor: '#444', flex: 1 }}>
+      <Text style={{ color: '#fff' }}>Bloom Test Exercise</Text>
 
       <Streak data={oneDayStreak} />
       <Streak data={fourDayStreak} />

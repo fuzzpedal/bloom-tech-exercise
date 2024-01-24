@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@shopify/react-native-skia": "0.1.234",
     "@types/react": "~18.2.45",
     "expo": "^50.0.1",
     "moti": "~0.22.0",

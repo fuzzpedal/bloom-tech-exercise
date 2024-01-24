@@ -27,7 +27,5 @@ export const StreakController: FC<Props> = ({ data }) => {
     return dates.map((item: string) => dayNames[new Date(item).getUTCDay()]);
   };
 
-  console.log();
-
   return <StreakView days={getDays(data)} />;
 };
