@@ -7,6 +7,7 @@ import {
   Group,
   LinearGradient,
   Paint,
+  Path,
   Text,
   useFont,
   vec,
@@ -59,18 +60,32 @@ export const StreakView: FC<Props> = ({ days }) => {
               </Group>
               <Group>
                 {day.selected ? (
-                  <Circle cx={cx} cy={cy} r={r} color="#c69">
-                    <Paint
+                  <>
+                    <Circle cx={cx} cy={cy} r={r} color="#c69">
+                      <Paint
+                        color="#fff"
+                        style="stroke"
+                        strokeWidth={strokeWidth}
+                      />
+                      <LinearGradient
+                        start={vec(128, 0)}
+                        end={vec(128, 100)}
+                        colors={['#e336eb', '#e336eb', '#f66938', '#f66938']}
+                      />
+                    </Circle>
+                    <Path
+                      path={`
+                        M ${cx - r / 2} ${cy}
+                        L ${cx - r / 5} ${cy + r / 3}
+                        L ${cx + r / 2.3} ${cy - r / 2.5}
+                        `}
                       color="#fff"
                       style="stroke"
-                      strokeWidth={strokeWidth}
+                      strokeJoin="round"
+                      strokeWidth={3}
+                      strokeCap="round"
                     />
-                    <LinearGradient
-                      start={vec(128, 0)}
-                      end={vec(128, 100)}
-                      colors={['#e336eb', '#e336eb', '#f66938', '#f66938']}
-                    />
-                  </Circle>
+                  </>
                 ) : (
                   <Circle
                     cx={cx}
