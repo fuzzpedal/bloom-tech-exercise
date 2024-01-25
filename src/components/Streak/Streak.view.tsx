@@ -16,7 +16,7 @@ interface Props {
 export const StreakView: FC<Props> = ({ days }) => {
   const windowWidth = Dimensions.get('window').width;
 
-  const initialDelay = 500;
+  const initialDelay = 0;
   const transitionTime = 1000;
 
   const r = 20;
