@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Dimensions, View } from 'react-native';
+import { Dimensions, View, Text } from 'react-native';
 
 import { MotiView } from 'moti';
 import { Canvas, Line, LinearGradient, vec } from '@shopify/react-native-skia';
@@ -79,7 +79,7 @@ export const StreakView: FC<Props> = ({ days }) => {
 
         return isCurrentDay || isFullStreak ? (
           <MotiView
-            key={day.fullName}
+            key={`${i}-${day.fullName}`}
             style={styles.streakItemContainer}
             from={{ opacity: 0, scale: 1.5 }}
             animate={{ opacity: 1, scale: 1 }}
