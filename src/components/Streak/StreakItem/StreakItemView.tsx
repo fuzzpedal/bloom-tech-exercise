@@ -41,9 +41,10 @@ export const StreakItemView: FC<Props> = ({
   const cx = r + strokeWidth;
   const cy = r + fontSize + strokeWidth + 10;
   const tx = cx - font.measureText(shortName).width / 2 + 1;
+  const th = font.measureText(shortName).height;
   const ty = 20;
   const canvasWidth = r * 2 + strokeWidth * 2;
-  const canvasHeight = r * 4;
+  const canvasHeight = th + ty + r * 2;
   const selectedCircleRadius = r - strokeWidth / 2;
 
   return (
