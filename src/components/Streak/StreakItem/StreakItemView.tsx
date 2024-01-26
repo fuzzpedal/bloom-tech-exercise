@@ -51,7 +51,6 @@ export const StreakItemView: FC<Props> = ({
       style={{
         width: canvasWidth,
         height: canvasHeight,
-        flexDirection: 'row',
       }}>
       {selected ? (
         <Group>
