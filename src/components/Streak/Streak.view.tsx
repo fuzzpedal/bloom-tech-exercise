@@ -79,7 +79,7 @@ export const StreakView: FC<Props> = ({ days }) => {
 
         return isCurrentDay || isFullStreak ? (
           <MotiView
-            key={`${i}-${day.fullName}`}
+            key={`${day.id}`}
             style={styles.streakItemContainer}
             from={{ opacity: 0, scale: 1.5 }}
             animate={{ opacity: 1, scale: 1 }}

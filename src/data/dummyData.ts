@@ -14,8 +14,7 @@ export const fourDayStreak: RawStreakData = {
 };
 
 export const sevenDayStreak: RawStreakData = {
-  
-  "streak": [
+  streak: [
     "2023-07-22T12:07:47+01:00",
     "2023-07-23T12:07:47+01:00",
     "2023-07-24T12:07:47+01:00",
@@ -27,7 +26,7 @@ export const sevenDayStreak: RawStreakData = {
 }
 
 export const nineDayStreak: RawStreakData = {
-  "streak": [
+  streak: [
     "2023-07-31T12:07:47+01:00",
     "2023-08-01T12:07:47+01:00",
     "2023-08-02T12:07:47+01:00",

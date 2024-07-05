@@ -30,9 +30,9 @@ export const StreakController: FC<Props> = ({ data }) => {
     // get the dates that correspond to those streak days
     const dates = streak.slice(streak.length - numDays);
 
-    const days = dates.map((item: string) => {
+    const days = dates.map((item: string, i: number) => {
       const name = dayNames[new Date(item).getUTCDay()];
-      return { fullName: name, shortName: name[0], selected: true };
+      return { id: i, fullName: name, shortName: name[0], selected: true };
     });
 
     // add the non-streak days
@@ -43,6 +43,7 @@ export const StreakController: FC<Props> = ({ data }) => {
         lastDayIndex = 0;
       }
       const d: StreakDay = {
+        id: i,
         fullName: dayNames[lastDayIndex],
         shortName: dayNames[lastDayIndex][0],
         selected: false,
